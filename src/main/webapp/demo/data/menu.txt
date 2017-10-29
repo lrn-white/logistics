@@ -1,0 +1,12 @@
+[
+	{ id: "user", text: "信息管理", iconCls: "icon-folder"},
+	{ id: "addUser", pid: "user", text: "员工信息", iconCls: "icon-user", url: "user/add.html"},
+	{ id: "editUser", pid: "user", text: "货车信息", iconCls: "icon-user", url: "../driver/driverMain.html"},
+	{ id: "removeUser", pid: "user", text: "司机信息", iconCls: "icon-user", url: "user/delete.html"},
+    { id: "removeUser", pid: "user", text: "货物信息", iconCls: "icon-user", url: "user/delete.html"},
+
+
+	{ id: "right", text: "权限管理"},
+	{ id: "addRight", pid: "right", text: "查询权限", iconCls: "Note", url: "auth/select.html", iconPosition: "top"},
+	{ id: "editRight", pid: "right", text: "操作权限", iconCls: "Reports", url: "auth/do.html", iconPosition: "top"}
+]
