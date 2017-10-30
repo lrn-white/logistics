@@ -23,27 +23,25 @@ public class DriverController {
     }
 
     @RequestMapping("/updateDriver")
-    public Object updateDriver(Driver driver) {
-        return driverService.updateDriver(driver);
-    }
+    public Object updateDriver(Driver driver) { return driverService.updateDriver(driver); }
 
     @RequestMapping("/deleteDriver")
-    public Object deleteById(Integer id) {
-        return driverService.deleteById(id);
+    public Object deleteDriverById(Integer id) {
+        return driverService.deleteDriverById(id);
     }
 
     @RequestMapping("/getById")
-    public Object getById(Integer id) {
-        return driverService.getById(id);
+    public Object getDriverById(Integer id) {
+        return driverService.getDriverById(id);
     }
 
     @RequestMapping("/getByName")
-    public Object getByName(String name) {
-        return driverService.getByName(name);
+    public Object getDriverByName(String name) {
+        return driverService.getDriverByName(name);
     }
 
     @RequestMapping("/getAll")
-    public Object queryByList() {
-        return driverService.queryByList();
+    public Object queryDriverByList() {
+        return driverService.queryDriverByList();
     }
 }

@@ -19,22 +19,15 @@ public class DriverService {
 
     public Integer addDriver(Driver driver) { return driverMapper.addDriver(driver); }
 
-    public Integer updateDriver(Driver driver) { return driverMapper.update(driver); }
+    public Integer updateDriver(Driver driver) { return driverMapper.updateDriver(driver); }
 
-    public Integer deleteById(Integer id) {
-        return driverMapper.deleteById(id);
+    public Integer deleteDriverById(Integer id) { return driverMapper.deleteDriverById(id); }
+
+    public Driver getDriverById(Integer id) { return driverMapper.getDriverById(id); }
+
+    public Driver getDriverByName(String name) {
+        return driverMapper.getDriverByName(name);
     }
 
-
-    public Driver getById(Integer id) {
-        return driverMapper.getById(id);
-    }
-
-    public Driver getByName(String name) {
-        return driverMapper.getByName(name);
-    }
-
-    public List<Driver> queryByList() {
-        return driverMapper.queryByList();
-    }
+    public List<Driver> queryDriverByList() { return driverMapper.queryDriverByList(); }
 }

@@ -1,9 +1,12 @@
 package com.liu.bean;
 
+import lombok.Data;
+
 /**
  * @Author lrn
  * @Date 2017/10/10
  */
+@Data
 public class Goods {
 
     private Integer id;

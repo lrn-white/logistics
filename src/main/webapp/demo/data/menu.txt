@@ -3,7 +3,7 @@
 	{ id: "addUser", pid: "user", text: "员工信息", iconCls: "icon-user", url: "user/add.html"},
 	{ id: "editUser", pid: "user", text: "货车信息", iconCls: "icon-user", url: "../driver/driverMain.html"},
 	{ id: "removeUser", pid: "user", text: "司机信息", iconCls: "icon-user", url: "user/delete.html"},
-    { id: "removeUser", pid: "user", text: "货物信息", iconCls: "icon-user", url: "user/delete.html"},
+    { id: "removeUser", pid: "user", text: "货物信息", iconCls: "icon-user", url: "../goods/goodsMain.html"},
 
 
 	{ id: "right", text: "权限管理"},

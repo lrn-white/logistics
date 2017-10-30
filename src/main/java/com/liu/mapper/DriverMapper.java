@@ -18,19 +18,19 @@ public interface DriverMapper {
     Integer addDriver(Driver driver);
 
     @Delete({"DELETE FROM driver WHERE id = #{arg1}"})
-    Integer deleteById(Integer id);
+    Integer deleteDriverById(Integer id);
 
     @Update({"UPDATE driver SET gender = #{gender}, licenseNumber = #{licenseNumber}, state = #{state}," +
             "plateNumber = #{plateNumber} WHERE name = #{name}"})
-    Integer update(Driver driver);
+    Integer updateDriver(Driver driver);
 
     @Select({"SELECT * FROM driver where id = #{arg1}"})
-    Driver getById(Integer id);
+    Driver getDriverById(Integer id);
 
     @Select({"SELECT * FROM driver where name = #{arg1}"})
-    Driver getByName(String name);
+    Driver getDriverByName(String name);
 
     @Select({"SELECT * FROM driver ORDER BY id"})
-    List<Driver> queryByList();
+    List<Driver> queryDriverByList();
 
 }

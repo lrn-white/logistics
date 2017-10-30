@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>货物信息面板</title>
+    <script src="../../scripts/boot.js" type="text/javascript"></script>
+
+    <style type="text/css">
+        html, body {
+            font-size: 12px;
+            padding: 0;
+            margin: 0;
+            border: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+<form id="form1" method="post">
+    <input name="id" class="mini-hidden" />
+    <fieldset style="border:solid 1px #aaa;padding:3px;">
+        <legend >发货人信息</legend>
+        <div style="padding:5px;">
+            <table>
+                <tr>
+                    <td style="width:70px;">姓名</td>
+                    <td style="width:150px;">
+                        <input name="consignor" class="mini-textbox" required="true"/>
+                    </td>
+                    <td style="width:70px;">电话</td>
+                    <td style="width:150px;">
+                        <input name="consignorPhone" class="mini-textbox" required="true"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:70px;">地址</td>
+                    <td style="width:150px;">
+                        <input name="consignorAdress" class="mini-textbox" required="true"/>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </fieldset>
+    <fieldset style="border:solid 1px #aaa;padding:3px;">
+        <legend >收货人信息</legend>
+        <div style="padding:5px;">
+            <table>
+                <tr>
+                    <td style="width:70px;">姓名</td>
+                    <td style="width:150px;">
+                        <input name="consignee" class="mini-textbox" required="true"/>
+                    </td>
+                    <td style="width:70px;">电话</td>
+                    <td style="width:150px;">
+                        <input name="consigneePhone" class="mini-textbox" required="true"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:70px;">地址</td>
+                    <td style="width:150px;">
+                        <input name="consigneeAdress" class="mini-textbox" required="true"/>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </fieldset>
+    <div style="padding-left:11px;padding-bottom:5px;">
+        <table style="table-layout:fixed;">
+            <tr>
+                <td style="width:70px;">当前地址：</td>
+                <td style="width:150px;">
+                    <input name="currentAddress" class="mini-textbox" required="true"/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div style="text-align:center;padding:10px;">
+        <a class="mini-button" onclick="onOk" style="width:60px;margin-right:20px;">确定</a>
+        <a class="mini-button" onclick="onCancel" style="width:60px;">取消</a>
+    </div>
+</form>
+
+
+<script type="text/javascript">
+    mini.parse();
+
+    var form = new mini.Form("form1");
+
+    function SaveData() {
+        var o = form.getData();
+
+        form.validate();
+        if (form.isValid() == false) return;
+
+        var json = mini.encode([o]);
+
+        var consignor = document.getElementsByName("consignor")[0].value;
+        var consignee = document.getElementsByName("consignee")[0].value;
+        var consignorPhone = document.getElementsByName("consignorPhone")[0].value;
+        var consigneePhone = document.getElementsByName("consigneePhone")[0].value;
+        var consignorAdress = document.getElementsByName("consignorAdress")[0].value;
+        var consigneeAdress = document.getElementsByName("consigneeAdress")[0].value;
+        var currentAddress = document.getElementsByName("currentAddress")[0].value;
+
+        $.ajax({
+            url: '../../goods/addGoods?consignor=' + consignor + '&consignee=' + consignee +
+            '&consignorPhone=' + consignorPhone + '&consigneePhone=' + consigneePhone +
+            '&consignorAdress=' + consignorAdress + '&consigneeAdress=' + consigneeAdress +
+            '&currentAddress=' + currentAddress,
+            type: 'post',
+//            data: { data: json },
+//            cache: false,
+            dataType:"json",
+            async : false,
+            success: function (text) {
+                CloseWindow("save");
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(jqXHR.responseText);
+                CloseWindow();
+            }
+        });
+    }
+
+    ////////////////////
+//    标准方法接口定义
+    function SetData(data) {
+        if (data.action == "edit") {
+            //跨页面传递的数据对象，克隆后才可以安全使用
+            data = mini.clone(data);
+
+            $.ajax({
+                url: "../../goods/getGoodsById?id=" + data.id,
+                cache: false,
+                success: function (text) {
+                    var o = mini.decode(text);
+                    form.setData(o);
+                    form.setChanged(false);
+
+//                    onDeptChanged();
+//                    mini.getbyName("position").setValue(o.position);
+                }
+            });
+        }
+    }
+
+    function GetData() {
+        var o = form.getData();
+        return o;
+    }
+    function CloseWindow(action) {
+        if (action == "close" && form.isChanged()) {
+            if (confirm("数据被修改了，是否先保存？")) {
+                return false;
+            }
+        }
+        if (window.CloseOwnerWindow) return window.CloseOwnerWindow(action);
+        else window.close();
+    }
+    function onOk(e) {
+        SaveData();
+    }
+    function onCancel(e) {
+        CloseWindow("cancel");
+    }
+    //////////////////////////////////
+//    function onDeptChanged(e) {
+//            var deptCombo = mini.getbyName("dept_id");
+//            var positionCombo = mini.getbyName("position");
+//            var dept_id = deptCombo.getValue();
+//
+//            positionCombo.load("../data/AjaxService.aspx?method=GetPositionsByDepartmenId&id=" + dept_id);
+//            positionCombo.setValue("");
+//        }
+</script>
+</body>
+</html>
