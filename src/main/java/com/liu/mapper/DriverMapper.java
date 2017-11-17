@@ -13,24 +13,27 @@ import java.util.List;
 @Mapper
 public interface DriverMapper {
 
-    @Insert({"INSERT INTO driver (name, gender, photo, licenseNumber, state, plateNumber) " +
-            "VALUES (#{name}, #{gender}, #{photo}, #{licenseNumber}, #{state}, #{plateNumber})"})
+    @Insert({"INSERT INTO driver (driverName, gender, photo, licenseNumber, driverState, driverCity) " +
+            "VALUES (#{driverName}, #{gender}, #{photo}, #{licenseNumber}, #{driverState}, #{driverCity})"})
     Integer addDriver(Driver driver);
 
     @Delete({"DELETE FROM driver WHERE id = #{arg1}"})
     Integer deleteDriverById(Integer id);
 
-    @Update({"UPDATE driver SET gender = #{gender}, licenseNumber = #{licenseNumber}, state = #{state}," +
-            "plateNumber = #{plateNumber} WHERE name = #{name}"})
+    @Update({"UPDATE driver SET gender = #{gender}, licenseNumber = #{licenseNumber}, driverState = #{driverState}," +
+            "WHERE driverName = #{driverName}"})
     Integer updateDriver(Driver driver);
 
     @Select({"SELECT * FROM driver where id = #{arg1}"})
     Driver getDriverById(Integer id);
 
-    @Select({"SELECT * FROM driver where name = #{arg1}"})
+    @Select({"SELECT * FROM driver where driverName = #{arg1}"})
     Driver getDriverByName(String name);
 
     @Select({"SELECT * FROM driver ORDER BY id"})
     List<Driver> queryDriverByList();
+
+    @Select({"SELECT id FROM driver where driverName = #{arg1}"})
+    Integer getIdByDriverName(String driverName);
 
 }

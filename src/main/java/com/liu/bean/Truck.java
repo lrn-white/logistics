@@ -15,5 +15,9 @@ public class Truck {
 //    车重
     private String deadweight;
 //    0表示空闲，1表示运货途中
-    private String state;
+    private String truckState;
+
+    private String truckCity;
+
+    private String cityName;
 }

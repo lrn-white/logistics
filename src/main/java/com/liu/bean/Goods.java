@@ -25,4 +25,6 @@ public class Goods {
     private String consigneeAdress;
 //    当前地址
     private String currentAddress;
+//    货物状态：0为未发，1为运送中，2为已接收
+    private String state;
 }

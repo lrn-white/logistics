@@ -11,14 +11,14 @@ import java.util.List;
  */
 @Mapper
 public interface TruckMapper {
-    @Insert({"INSERT INTO truck (plateNumber, deadweight, state) VALUES (#{plateNumber}, " +
-            "#{deadweight}, #{state})"})
+    @Insert({"INSERT INTO truck (plateNumber, deadweight, truckState, truckCity) VALUES (#{plateNumber}, " +
+            "#{deadweight}, #{truckState}, #{truckCity})"})
     Integer addTruck(Truck truck);
 
     @Delete({"DELETE FROM truck WHERE id = #{arg1}"})
     Integer deleteTruckById(Integer id);
 
-    @Update({"UPDATE truck SET deadweight = #{deadweight}, state = #{state}" +
+    @Update({"UPDATE truck SET deadweight = #{deadweight}, truckState = #{truckState}, truckCity = #{truckCity}" +
             "WHERE plateNumber = #{plateNumber}"})
     Integer updateTruck(Truck truck);
 
@@ -30,4 +30,7 @@ public interface TruckMapper {
 
     @Select({"SELECT * FROM truck ORDER BY id"})
     List<Truck> queryTruckByList();
+
+    @Select({"SELECT id FROM truck where plateNumber = #{arg1}"})
+    Integer getIdByPlateNumber(String plateNumber);
 }

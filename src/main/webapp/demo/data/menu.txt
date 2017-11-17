@@ -1,9 +1,10 @@
 [
-	{ id: "user", text: "信息管理", iconCls: "icon-folder"},
-	{ id: "addUser", pid: "user", text: "员工信息", iconCls: "icon-user", url: "../user/userMain.html"},
-	{ id: "editUser", pid: "user", text: "货车信息", iconCls: "icon-user", url: "../truck/truckMain.html"},
-	{ id: "removeUser", pid: "user", text: "司机信息", iconCls: "icon-user", url: "../driver/driverMain.html"},
-    { id: "removeUser", pid: "user", text: "货物信息", iconCls: "icon-user", url: "../goods/goodsMain.html"},
+	{ id: "message", text: "信息管理", iconCls: "icon-folder"},
+	{ id: "User", pid: "message", text: "员工信息", iconCls: "icon-user", url: "../user/userMain.html"},
+	{ id: "Truck", pid: "message", text: "货车信息", iconCls: "icon-user", url: "../truck/truckMain.html"},
+	{ id: "Driver", pid: "message", text: "司机信息", iconCls: "icon-user", url: "../driver/driverMain.html"},
+    { id: "Goods", pid: "message", text: "货物信息", iconCls: "icon-user", url: "../goods/goodsMain.html"},
+    { id: "Waybill", pid: "message", text: "运输单信息", iconCls: "icon-user", url: "../waybill/waybillMain.html"},
 
 
 	{ id: "right", text: "权限管理"},

@@ -24,14 +24,15 @@
             <tr>
                 <td style="width:60px;"><%--@declare id="username$text"--%><label for="username$text">帐号：</label></td>
                 <td>
-                    <input id="username" name="username" onvalidation="onUserNameValidation" class="mini-textbox" required="true" style="width:150px;"/>
+                    <input id="username" name="username" onvalidation="onUserNameValidation"
+                           class="mini-textbox" required="true" style="width:150px;"/>
                 </td>
             </tr>
             <tr>
                 <td style="width:60px;"><%--@declare id="pwd$text"--%><label for="pwd$text">密码：</label></td>
                 <td>
-                    <input id="pwd" name="pwd" onvalidation="onPwdValidation" class="mini-password" requiredErrorText="密码不能为空" required="true" style="width:150px;" onenter="onLoginClick"/>
-                    &nbsp;&nbsp;<a href="#" >忘记密码?</a>
+                    <input id="pwd" name="pwd" onvalidation="onPwdValidation" class="mini-password"
+                           requiredErrorText="密码不能为空" required="true" style="width:150px;" onenter="onLoginClick"/>
                 </td>
             </tr>
             <tr>

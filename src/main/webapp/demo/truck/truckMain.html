@@ -25,7 +25,7 @@
         <tr>
             <td style="width:100%;">
                 <a class="mini-button" iconCls="icon-add" onclick="add()">增加</a>
-                <a class="mini-button" iconCls="icon-add" onclick="edit()">编辑</a>
+                <a class="mini-button" iconCls="icon-edit" onclick="edit()">编辑</a>
                 <a class="mini-button" iconCls="icon-remove" onclick="remove()">删除</a>
             </td>
             <td style="white-space:nowrap;">
@@ -46,7 +46,7 @@
             <div type="checkcolumn"></div>
             <div field="plateNumber" width="120" headerAlign="center" allowSort="true">车牌号</div>
             <div field="deadweight" width="120" headerAlign="center" allowSort="true">车重</div>
-            <div field="state" width="100" headerAlign="center" allowSort="true">状态</div>
+            <div field="state" width="100" headerAlign="center" allowSort="true" renderer="onStateRenderer">状态</div>
         </div>
     </div>
 </div>
