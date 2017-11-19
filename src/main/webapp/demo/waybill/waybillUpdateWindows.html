@@ -41,7 +41,7 @@
             <label>当前地址：</label>
             <input id="combo3" class="mini-combobox" style="width:150px;" textField="distributiveName" valueField="id" emptyText="请选择..."
                    url="../../waybill/getDistributive" required="true" allowInput="true" showNullItem="true" nullItemText="请选择..."
-                   name="distributiveName"
+                   name="currentAddress" renderer="onCurrentAddressRenderer"
             />
 
             <div style="height: 20px;"></div>
@@ -102,12 +102,11 @@
         var arriveCity = document.getElementsByName("arriveCity")[0].value;
         var driverName = document.getElementsByName("driverName")[0].value;
         var plateNumber = document.getElementsByName("plateNumber")[0].value;
-        var distributiveName = document.getElementsByName("distributiveName")[0].value;
+        var distributiveName = document.getElementsByName("currentAddress")[0].value;
         var id = document.getElementsByName("id")[0].value;
 
         $.ajax({
-            url: '../../waybill/addWaybill?departureCity=' + departureCity + '&arriveCity=' + arriveCity +
-            '&driverName=' + driverName + '&plateNumber=' + plateNumber +'&distributiveName=' + distributiveName +'&id=' + id,
+            url: '../../waybill/updateWaybillDto?currentAddress=' + distributiveName +'&id=' + id,
             type: 'post',
 //            data: { data: json },
 //            cache: false,
@@ -131,15 +130,12 @@
             data = mini.clone(data);
 
             $.ajax({
-                url: "../../truck/getTruckById?id=" + data.id,
+                url: "../../waybill/getWaybillDtoByGoodsID?id=" + data.id,
                 cache: false,
                 success: function (text) {
                     var o = mini.decode(text);
                     form.setData(o);
                     form.setChanged(false);
-
-//                    onDeptChanged();
-//                    mini.getbyName("position").setValue(o.position);
                 }
             });
         }
@@ -163,6 +159,16 @@
     }
     function onCancel(e) {
         CloseWindow("cancel");
+    }
+
+    var CurrentAddress = [{id: 1, text: '杭州集散中心'}, {id: 2, text: '上海集散中心'}, {id: 3, text: '南京集散中心'}];
+
+    function onCurrentAddressRenderer(e) {
+        for (var i = 0, l = CurrentAddress.length; i < l; i++) {
+            var g = CurrentAddress[i];
+            if (g.id == e.value) return g.text;
+        }
+        return "";
     }
 </script>
 </body>

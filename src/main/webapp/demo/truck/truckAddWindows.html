@@ -28,15 +28,18 @@
                     <td style="width:150px;">
                         <input name="plateNumber" class="mini-textbox" required="true"/>
                     </td>
-                    <td style="width:70px;">车重</td>
+                    <td style="width:70px;">所在城市</td>
                     <td style="width:150px;">
-                        <input name="deadweight" class="mini-textbox" required="true"/>
+                        <input id="combo1" class="mini-combobox" style="width:150px;" textField="cityName" valueField="id" emptyText="请选择..."
+                               url="../../waybill/getCity" required="true" allowInput="true" showNullItem="true" nullItemText="请选择..."
+                               name="departureCity"
+                        />
                     </td>
                 </tr>
                 <tr>
                     <td style="width:70px;">状态：</td>
                     <td>
-                        <select name="state" class="mini-radiobuttonlist" id="state">
+                        <select name="truckState" class="mini-radiobuttonlist" id="state">
                             <option value="0">空闲</option>
                             <option value="1">运货中</option>
                         </select>
@@ -66,12 +69,12 @@
         var json = mini.encode([o]);
 
         var plateNumber = document.getElementsByName("plateNumber")[0].value;
-        var deadweight = document.getElementsByName("deadweight")[0].value;
-        var state = document.getElementsByName("state")[0].value;
+        var departureCity = document.getElementsByName("departureCity")[0].value;
+        var truckState = document.getElementsByName("truckState")[0].value;
 
         $.ajax({
-            url: '../../truck/addTruck?plateNumber=' + plateNumber + '&deadweight=' + deadweight +
-            '&state=' + state,
+            url: '../../truck/addTruck?plateNumber=' + plateNumber + '&truckCity=' + departureCity +
+            '&truckState=' + truckState,
             type: 'post',
 //            data: { data: json },
 //            cache: false,

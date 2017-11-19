@@ -29,9 +29,6 @@
                         <input name="name" class="mini-textbox" required="true" id="name"/>
                     </td>
                 </tr>
-                <tr >
-                   <img src="#" style="width: 100px; height: 100px;float: right;padding-right: 50px;"/>
-                </tr>
                 <tr>
                     <td style="width:70px;">性别：</td>
                     <td>
@@ -50,16 +47,19 @@
                 <tr>
                     <td style="width:70px;">状态：</td>
                     <td>
-                        <select name="state" class="mini-radiobuttonlist" id="state">
+                        <select name="driverState" class="mini-radiobuttonlist" id="state">
                             <option value="0">空闲</option>
                             <option value="1">运货中</option>
                         </select>
                     </td>
                 </tr>
                 <tr>
-                    <td style="width:70px;">车牌号</td>
+                    <td style="width:70px;">所在城市</td>
                     <td style="width:150px;">
-                        <input name="plateNumber" class="mini-textbox" required="true" id="plateNumber"/>
+                        <input id="combo1" class="mini-combobox" style="width:150px;" textField="cityName" valueField="id" emptyText="请选择..."
+                               url="../../waybill/getCity" required="true" allowInput="true" showNullItem="true" nullItemText="请选择..."
+                               name="departureCity"
+                        />
                     </td>
                 </tr>
             </table>
@@ -87,12 +87,12 @@
         var name = document.getElementsByName("name")[0].value;
         var gender = document.getElementsByName("gender")[0].value;
         var licenseNumber = document.getElementsByName("licenseNumber")[0].value;
-        var state = document.getElementsByName("state")[0].value;
-        var plateNumber = document.getElementsByName("plateNumber")[0].value;
+        var departureCity = document.getElementsByName("departureCity")[0].value;
+        var driverState = document.getElementsByName("driverState")[0].value;
 
         $.ajax({
-            url: '../../driver/addDriver?name=' + name + '&gender=' + gender + '&licenseNumber='
-                + licenseNumber + '&state=' + state + '&plateNumber=' + plateNumber,
+            url: '../../driver/addDriver?driverName=' + name + '&gender=' + gender + '&driverCity='
+                + departureCity + '&driverState=' + driverState + '&licenseNumber=' + licenseNumber,
             type: 'post',
 //            data: { data: json },
 //            cache: false,

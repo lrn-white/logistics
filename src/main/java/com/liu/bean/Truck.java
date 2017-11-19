@@ -12,11 +12,9 @@ public class Truck {
     private Integer id;
 //    车牌号
     private String plateNumber;
-//    车重
-    private String deadweight;
 //    0表示空闲，1表示运货途中
     private String truckState;
-
+//    货车当前所在城市
     private String truckCity;
 
     private String cityName;

@@ -26,11 +26,8 @@
                 <tr>
                     <td style="width:70px;">姓名</td>
                     <td style="width:150px;">
-                        <input name="name" class="mini-textbox" required="true" />
+                        <input name="driverName" class="mini-textbox" required="true" />
                     </td>
-                </tr>
-                <tr >
-                   <img src="#" style="width: 100px; height: 100px;float: right;padding-right: 50px;"/>
                 </tr>
                 <tr>
                     <td style="width:70px;">性别：</td>
@@ -44,22 +41,25 @@
                 <tr>
                     <td style="width:70px;">驾驶证号</td>
                     <td style="width:150px;">
-                        <input name="licenseNumber" class="mini-textbox" required="true"/>
+                        <input name="licenseNumber" class="mini-textbox" required="true" id="licenseNumber"/>
                     </td>
                 </tr>
                 <tr>
                     <td style="width:70px;">状态：</td>
                     <td>
-                        <select name="state" class="mini-radiobuttonlist">
+                        <select name="driverState" class="mini-radiobuttonlist" id="state">
                             <option value="0">空闲</option>
                             <option value="1">运货中</option>
                         </select>
                     </td>
                 </tr>
                 <tr>
-                    <td style="width:70px;">车牌号</td>
+                    <td style="width:70px;">所在城市</td>
                     <td style="width:150px;">
-                        <input name="plateNumber" class="mini-textbox" required="true"/>
+                        <input id="combo1" class="mini-combobox" style="width:150px;" textField="cityName" valueField="id" emptyText="请选择..."
+                               url="../../waybill/getCity" required="true" allowInput="true" showNullItem="true" nullItemText="请选择..."
+                               name="driverCity" renderer="onDriverCityRenderer"
+                        />
                     </td>
                 </tr>
             </table>
@@ -84,15 +84,15 @@
 
         var json = mini.encode([o]);
 
-        var name = document.getElementsByName("name")[0].value;
+        var driverName = document.getElementsByName("driverName")[0].value;
         var gender = document.getElementsByName("gender")[0].value;
         var licenseNumber = document.getElementsByName("licenseNumber")[0].value;
-        var state = document.getElementsByName("state")[0].value;
-        var plateNumber = document.getElementsByName("plateNumber")[0].value;
+        var driverCity = document.getElementsByName("driverCity")[0].value;
+        var driverState = document.getElementsByName("driverState")[0].value;
 
         $.ajax({
-            url: '../../driver/updateDriver?name=' + name + '&gender=' + gender + '&licenseNumber='
-            + licenseNumber + '&state=' + state + '&plateNumber=' + plateNumber,
+            url: '../../driver/updateDriver?driverName=' + driverName + '&gender=' + gender + '&licenseNumber='
+            + licenseNumber + '&driverCity=' + driverCity + '&driverState=' + driverState,
             type: 'post',
 //            data: { data: json },
 //            cache: false,
@@ -158,6 +158,17 @@
 //            positionCombo.load("../data/AjaxService.aspx?method=GetPositionsByDepartmenId&id=" + dept_id);
 //            positionCombo.setValue("");
 //        }
+
+    var DriverCitys = [{id: 1, text: '杭州'}, {id: 2, text: '上海'}, {id: 3, text: '南京'}];
+
+    function onDriverCityRenderer(e) {
+        for (var i = 0, l = DriverCitys.length; i < l; i++) {
+            var g = DriverCitys[i];
+            if (g.id == e.value) return g.text;
+        }
+        return "";
+    }
+
 </script>
 </body>
 </html>

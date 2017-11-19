@@ -1,6 +1,7 @@
 package com.liu.mapper;
 
 import com.liu.bean.Goods;
+import com.liu.bean.WaybillDto;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -13,9 +14,9 @@ import java.util.List;
 public interface GoodsMapper {
 
     @Insert({"INSERT INTO goods (consignor, consignee, consignorPhone, consigneePhone, " +
-            "consignorAdress, consigneeAdress, currentAddress) VALUES (#{consignor}, " +
+            "consignorAdress, consigneeAdress, currentAddress, state) VALUES (#{consignor}, " +
             "#{consignee}, #{consignorPhone}, #{consigneePhone}, #{consignorAdress}, " +
-            "#{consigneeAdress}, #{currentAddress})"})
+            "#{consigneeAdress}, #{currentAddress}, #{state})"})
     Integer addGoods(Goods goods);
 
     @Delete({"DELETE FROM goods WHERE id = #{arg1}"})
@@ -23,7 +24,7 @@ public interface GoodsMapper {
 
     @Update({"UPDATE goods SET consignee = #{consignee}, consignorPhone = #{consignorPhone}, " +
             "consigneePhone = #{consigneePhone}, consignorAdress = #{consignorAdress}, " +
-            "consigneeAdress = #{consigneeAdress}, currentAddress = #{currentAddress} " +
+            "consigneeAdress = #{consigneeAdress}, currentAddress = #{currentAddress}, state = #{state} " +
             "WHERE consignee = #{consignee}"})
     Integer updateGoods(Goods goods);
 
@@ -35,4 +36,16 @@ public interface GoodsMapper {
 
     @Select({"SELECT * FROM goods ORDER BY id"})
     List<Goods> queryGoodsByList();
+
+    @Update({"UPDATE goods SET state = '1' where id = #{arg1}"})
+    Integer changeGoodsState(Integer goodsID);
+
+    @Update({"UPDATE goods SET state = '0' where id = #{arg1}"})
+    Integer changeGoodsState0(Integer goodsID);
+
+    @Update({"UPDATE goods SET state = '2' where id = #{arg1}"})
+    Integer changeGoodsState2(Integer goodsID);
+
+    @Update({"UPDATE goods SET currentAddress = #{currentAddress} where id = #{id} "})
+    Integer changeCurrentAddress(Goods goods);
 }

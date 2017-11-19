@@ -44,11 +44,12 @@
          pageSize="10">
         <div property="columns">
             <div type="checkcolumn"></div>
-            <div field="name" width="120" headerAlign="center" allowSort="true">姓名</div>
+            <div field="id" width="120" headerAlign="center" allowSort="true">ID</div>
+            <div field="driverName" width="120" headerAlign="center" allowSort="true">姓名</div>
             <div field="gender" width="120" headerAlign="center" allowSort="true" renderer="onGenderRenderer">性别</div>
             <div field="licenseNumber" width="100" headerAlign="center" allowSort="true">驾驶证号</div>
-            <div field="state" width="100" headerAlign="center" allowSort="true" renderer="onStateRenderer">状态</div>
-            <div field="plateNumber" width="100" headerAlign="center" allowSort="true">车牌号</div>
+            <div field="driverState" width="100" headerAlign="center" allowSort="true" renderer="onStateRenderer">状态</div>
+            <div field="driverCity" width="100" headerAlign="center" allowSort="true" renderer="onDriverCityRenderer">所在城市</div>
         </div>
     </div>
 </div>
@@ -165,6 +166,8 @@
 
     var States = [{id: 0, text: '空闲'}, {id: 1, text: '运货中'}];
 
+    var DriverCitys = [{id: 1, text: '杭州'}, {id: 2, text: '上海'}, {id: 3, text: '南京'}];
+
     function onGenderRenderer(e) {
         for (var i = 0, l = Genders.length; i < l; i++) {
             var g = Genders[i];
@@ -176,6 +179,14 @@
     function onStateRenderer(e) {
         for (var i = 0, l = States.length; i < l; i++) {
             var g = States[i];
+            if (g.id == e.value) return g.text;
+        }
+        return "";
+    }
+
+    function onDriverCityRenderer(e) {
+        for (var i = 0, l = DriverCitys.length; i < l; i++) {
+            var g = DriverCitys[i];
             if (g.id == e.value) return g.text;
         }
         return "";

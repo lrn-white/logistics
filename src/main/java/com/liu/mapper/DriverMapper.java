@@ -13,15 +13,15 @@ import java.util.List;
 @Mapper
 public interface DriverMapper {
 
-    @Insert({"INSERT INTO driver (driverName, gender, photo, licenseNumber, driverState, driverCity) " +
-            "VALUES (#{driverName}, #{gender}, #{photo}, #{licenseNumber}, #{driverState}, #{driverCity})"})
+    @Insert({"INSERT INTO driver (driverName, gender, licenseNumber, driverState, driverCity) " +
+            "VALUES (#{driverName}, #{gender}, #{licenseNumber}, #{driverState}, #{driverCity})"})
     Integer addDriver(Driver driver);
 
     @Delete({"DELETE FROM driver WHERE id = #{arg1}"})
     Integer deleteDriverById(Integer id);
 
     @Update({"UPDATE driver SET gender = #{gender}, licenseNumber = #{licenseNumber}, driverState = #{driverState}," +
-            "WHERE driverName = #{driverName}"})
+            "driverCity = #{driverCity} WHERE driverName = #{driverName}"})
     Integer updateDriver(Driver driver);
 
     @Select({"SELECT * FROM driver where id = #{arg1}"})
@@ -36,4 +36,9 @@ public interface DriverMapper {
     @Select({"SELECT id FROM driver where driverName = #{arg1}"})
     Integer getIdByDriverName(String driverName);
 
+    @Update({"UPDATE driver SET driverState = '1' where id = #{arg1}"})
+    Integer changeDriverState(Integer driverID);
+
+    @Update({"UPDATE driver SET driverState = '0' where id = #{arg1}"})
+    Integer changeDriverState0(Integer driverID);
 }

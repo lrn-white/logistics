@@ -62,6 +62,7 @@
                         <input name="consigneeAdress" class="mini-textbox" required="true"/>
                     </td>
                 </tr>
+
             </table>
         </div>
     </fieldset>
@@ -70,7 +71,19 @@
             <tr>
                 <td style="width:70px;">当前地址：</td>
                 <td style="width:150px;">
-                    <input name="currentAddress" class="mini-textbox" required="true"/>
+                    <input id="combo3" class="mini-combobox" style="width:150px;" textField="distributiveName" valueField="id" emptyText="请选择..."
+                           url="../../waybill/getDistributive" required="true" allowInput="true" showNullItem="true" nullItemText="请选择..."
+                           name="distributiveName"
+                    />
+                </td>
+            </tr>
+            <tr>
+                <td style="width:70px;">状态：</td>
+                <td>
+                    <select name="state" class="mini-radiobuttonlist" id="state">
+                        <option value="0">空闲</option>
+                        <option value="1">运货中</option>
+                    </select>
                 </td>
             </tr>
         </table>
@@ -101,13 +114,14 @@
         var consigneePhone = document.getElementsByName("consigneePhone")[0].value;
         var consignorAdress = document.getElementsByName("consignorAdress")[0].value;
         var consigneeAdress = document.getElementsByName("consigneeAdress")[0].value;
-        var currentAddress = document.getElementsByName("currentAddress")[0].value;
+        var distributiveName = document.getElementsByName("distributiveName")[0].value;
+        var state = document.getElementsByName("state")[0].value;
 
         $.ajax({
             url: '../../goods/addGoods?consignor=' + consignor + '&consignee=' + consignee +
             '&consignorPhone=' + consignorPhone + '&consigneePhone=' + consigneePhone +
             '&consignorAdress=' + consignorAdress + '&consigneeAdress=' + consigneeAdress +
-            '&currentAddress=' + currentAddress,
+            '&currentAddress=' + distributiveName + '&state=' + state,
             type: 'post',
 //            data: { data: json },
 //            cache: false,

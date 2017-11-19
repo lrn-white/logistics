@@ -50,7 +50,8 @@
             <div field="consigneePhone" width="100" headerAlign="center" allowSort="true">收货人电话</div>
             <div field="consignorAdress" width="100" headerAlign="center" allowSort="true">发货地址</div>
             <div field="consigneeAdress" width="100" headerAlign="center" allowSort="true">收货地址</div>
-            <div field="currentAddress" width="100" headerAlign="center" allowSort="true">当前地址</div>
+            <div field="currentAddress" width="100" headerAlign="center" allowSort="true" renderer="onCurrentAddressRenderer">当前地址</div>
+            <div field="state" width="100" headerAlign="center" allowSort="true" renderer="onStateRenderer">状态</div>
         </div>
     </div>
 </div>
@@ -66,7 +67,7 @@
             targetWindow: window,
 
             url: bootPATH + "../demo/goods/goodsAddWindows.html",
-            title: "新增货物信息", width: 500, height: 320,
+            title: "新增货物信息", width: 500, height: 400,
             onload: function () {
                 var iframe = this.getIFrameEl();
                 var data = {action: "new"};
@@ -84,7 +85,7 @@
         if (row) {
             mini.open({
                 url: bootPATH + "../demo/goods/goodsUpdateWindows.html",
-                title: "修改货物信息", width: 500, height: 320,
+                title: "修改货物信息", width: 500, height: 400,
                 onload: function () {
                     var iframe = this.getIFrameEl();
                     var data = {action: "edit", id: row.id};
@@ -130,7 +131,7 @@
 
         mini.open({
             url: bootPATH + "../demo/goods/goodsSearchWindows.html",
-            title: "查询货物信息", width: 500, height: 320,
+            title: "查询货物信息", width: 500, height: 400,
             onload: function () {
                 var iframe = this.getIFrameEl();
                 var data = {action: "search", consignee: key};
@@ -167,6 +168,8 @@
 
     var States = [{id: 0, text: '空闲'}, {id: 1, text: '运货中'}];
 
+    var CurrentAddress = [{id: 1, text: '杭州集散中心'}, {id: 2, text: '上海集散中心'}, {id: 3, text: '南京集散中心'}];
+
     function onGenderRenderer(e) {
         for (var i = 0, l = Genders.length; i < l; i++) {
             var g = Genders[i];
@@ -178,6 +181,14 @@
     function onStateRenderer(e) {
         for (var i = 0, l = States.length; i < l; i++) {
             var g = States[i];
+            if (g.id == e.value) return g.text;
+        }
+        return "";
+    }
+
+    function onCurrentAddressRenderer(e) {
+        for (var i = 0, l = CurrentAddress.length; i < l; i++) {
+            var g = CurrentAddress[i];
             if (g.id == e.value) return g.text;
         }
         return "";
