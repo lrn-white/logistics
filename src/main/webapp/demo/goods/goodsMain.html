@@ -29,7 +29,7 @@
                 <a class="mini-button" iconCls="icon-remove" onclick="remove()">删除</a>
             </td>
             <td style="white-space:nowrap;">
-                <input id="key" class="mini-textbox" emptyText="请输入收货人姓名" style="width:150px;"
+                <input id="key" class="mini-textbox" emptyText="请输入发货人姓名" style="width:150px;"
                        onenter="onKeyEnter"/>
                 <a class="mini-button" onclick="search()">查询</a>
             </td>
@@ -166,7 +166,7 @@
 
     var Genders = [{id: 0, text: '男'}, {id: 1, text: '女'}];
 
-    var States = [{id: 0, text: '空闲'}, {id: 1, text: '运货中'}];
+    var States = [{id: 0, text: '未发送'}, {id: 1, text: '运货中'}, {id: 2, text: '已签收'}];
 
     var CurrentAddress = [{id: 1, text: '杭州集散中心'}, {id: 2, text: '上海集散中心'}, {id: 3, text: '南京集散中心'}];
 

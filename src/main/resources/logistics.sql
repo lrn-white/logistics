@@ -2,7 +2,8 @@
 SQLyog Ultimate v11.33 (64 bit)
 MySQL - 5.7.11 : Database - logistics
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -93,11 +94,11 @@ CREATE TABLE `truck` (
 
 /*Data for the table `truck` */
 
-/*Table structure for table `user` */
+/*Table structure for table `sysuser` */
 
-DROP TABLE IF EXISTS `user`;
+DROP TABLE IF EXISTS `sysuser`;
 
-CREATE TABLE `user` (
+CREATE TABLE `sysuser` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `account` varchar(50) DEFAULT NULL,
   `password` varchar(50) DEFAULT NULL,
@@ -106,7 +107,7 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-/*Data for the table `user` */
+/*Data for the table `sysuser` */
 
 /*Table structure for table `user_permission` */
 

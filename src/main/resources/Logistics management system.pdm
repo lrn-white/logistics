@@ -1770,7 +1770,7 @@ LABL 0 新宋体,8,N</a:FontList>
 <o:Table Id="o6">
 <a:ObjectID>66A4D748-43E4-479C-83C4-477E427E6821</a:ObjectID>
 <a:Name>用户表</a:Name>
-<a:Code>user</a:Code>
+<a:Code>sysuser</a:Code>
 <a:CreationDate>1506049202</a:CreationDate>
 <a:Creator>lrn</a:Creator>
 <a:ModificationDate>1506049846</a:ModificationDate>

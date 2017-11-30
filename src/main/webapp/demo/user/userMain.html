@@ -25,7 +25,11 @@
         <tr>
             <td style="width:100%;">
                 <a class="mini-button" iconCls="icon-add" onclick="add()">增加</a>
-                <a class="mini-button" iconCls="icon-remove" onclick="remove()">删除</a>
+            </td>
+            <td style="white-space:nowrap;">
+                <input id="key" class="mini-textbox" emptyText="请输入用户账号" style="width:150px;"
+                       onenter="onKeyEnter"/>
+                <a class="mini-button" onclick="search()">查询</a>
             </td>
         </tr>
     </table>
@@ -38,8 +42,11 @@
          pageSize="10">
         <div property="columns">
             <div type="checkcolumn"></div>
+            <div field="id" width="120" headerAlign="center" allowSort="true">编号</div>
             <div field="account" width="120" headerAlign="center" allowSort="true">账号</div>
             <div field="password" width="120" headerAlign="center" allowSort="true">密码</div>
+            <div field="roleName" width="120" headerAlign="center" allowSort="true">角色</div>
+            <div name="action" width="200" headerAlign="center" align="center" renderer="onActionRenderer" cellStyle="padding:0;">操作</div>
         </div>
     </div>
 </div>
@@ -68,40 +75,15 @@
         });
     }
 
-    function remove() {
-        var rows = grid.getSelecteds();
-        if (rows.length > 0) {
-            if (confirm("确定删除选中记录？")) {
-                var ids = [];
-                for (var i = 0, l = rows.length; i < l; i++) {
-                    var r = rows[i];
-                    ids.push(r.id);
-                }
-                var id = ids.join(',');
-                grid.loading("操作中，请稍后......");
-                $.ajax({
-                    url: "../../user/deleteUser?id=" + id,
-                    success: function (text) {
-                        grid.reload();
-                    },
-                    error: function () {
-                    }
-                });
-            }
-        } else {
-            alert("请选中一条记录");
-        }
-    }
-
     function search() {
         var key = mini.get("key").getValue();
 
         mini.open({
-            url: bootPATH + "../demo/truck/truckSearchWindows.html",
-            title: "查询货物信息", width: 500, height: 200,
+            url: bootPATH + "../demo/user/userSearchWindows.html",
+            title: "查询员工信息", width: 500, height: 200,
             onload: function () {
                 var iframe = this.getIFrameEl();
-                var data = {action: "search", plateNumber: key};
+                var data = {action: "search", account: key};
                 iframe.contentWindow.SetData(data);
             },
             ondestroy: function (action) {
@@ -149,6 +131,69 @@
             if (g.id == e.value) return g.text;
         }
         return "";
+    }
+
+    function onActionRenderer(e) {
+        var grid = e.sender;
+        var record = e.record;
+        var id = record._id;
+        var rowIndex = e.rowIndex;
+
+        var s = '<a class="Edit_Button" href="javascript:editRowSys(\'' + id + '\')" >设为系统管理员</a>'
+            + ' <a class="Edit_Button" href="javascript:editRowOperator(\'' + id + '\')" >设为操作员</a>'
+            + ' <a class="Delete_Button" href="javascript:delRow(\'' + id + '\')">删除</a>';
+        return s;
+    }
+
+    function editRowSys(row_id) {
+        var row = grid.getRowByUID(row_id);
+        if (row) {
+            if (confirm("确定设为系统管理员？")) {
+                grid.loading("设置中，请稍后......");
+                $.ajax({
+                    url: "../../role/setAsSystem?id=" + row.id,
+                    success: function (text) {
+                        grid.reload();
+                    },
+                    error: function () {
+                    }
+                });
+            }
+        }
+    }
+
+    function editRowOperator(row_id) {
+        var row = grid.getRowByUID(row_id);
+        if (row) {
+            if (confirm("确定设为操作员？")) {
+                grid.loading("设置中，请稍后......");
+                $.ajax({
+                    url: "../../role/setAsOperator?id=" + row.id,
+                    success: function (text) {
+                        grid.reload();
+                    },
+                    error: function () {
+                    }
+                });
+            }
+        }
+    }
+
+    function delRow(row_uid) {
+        var row = grid.getRowByUID(row_uid);
+        if (row) {
+            if (confirm("确定删除此记录？")) {
+                grid.loading("删除中，请稍后......");
+                $.ajax({
+                    url: "../../user/deleteUser?id=" + row.id,
+                    success: function (text) {
+                        grid.reload();
+                    },
+                    error: function () {
+                    }
+                });
+            }
+        }
     }
 </script>
 </body>

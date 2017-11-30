@@ -1,5 +1,6 @@
 package com.liu.mapper;
 
+import com.liu.bean.Role;
 import com.liu.bean.User;
 import org.apache.ibatis.annotations.*;
 
@@ -18,6 +19,17 @@ public interface UserMapper {
     @Delete({"DELETE FROM user WHERE id = #{arg1}"})
     Integer deleteUserById(Integer id);
 
-    @Select({"SELECT * FROM user ORDER BY id"})
-    List<User> queryUserByList();
+    @Delete({"DELETE FROM userrole WHERE userID = #{arg1}"})
+    Integer deleteUserRoleById(Integer id);
+
+    @Select({"SELECT u.id, u.account, u.password, r.roleName FROM USER u\n" +
+            "LEFT JOIN userrole ur ON u.id = ur.userID\n" +
+            "LEFT JOIN role r ON ur.roleID = r.id;"})
+    List<Role> queryUserByList();
+
+    @Select({"SELECT id FROM user WHERE account = #{arg1}"})
+    Integer getIDByAccount(String account);
+
+    @Insert({"INSERT INTO userrole (userID, roleID) VALUES (#{arg1}, 2);"})
+    Integer setUserAsOperator(Integer userID);
 }
