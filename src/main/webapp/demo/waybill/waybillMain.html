@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8"/>
     <title>运输单信息主页面</title>
-    <link href="../../../static/css/demo.css" rel="stylesheet" type="text/css"/>
+    <link href="../demo.css" rel="stylesheet" type="text/css"/>
 
     <script src="../../scripts/boot.js" type="text/javascript"></script>
 
@@ -27,6 +27,7 @@
                 <a class="mini-button" iconCls="icon-add" onclick="add()">新建</a>
                 <a class="mini-button" iconCls="icon-edit" onclick="edit()">编辑</a>
                 <a class="mini-button" iconCls="icon-ok" onclick="complete()">完成</a>
+                <a class="mini-button" iconCls="icon-ok" onclick="editList()">批量登记</a>
                 <a class="mini-button" iconCls="icon-remove" onclick="remove()">删除</a>
             </td>
             <td style="white-space:nowrap;">
@@ -47,9 +48,14 @@
             <div type="checkcolumn"></div>
             <div field="driverName" width="120" headerAlign="center" allowSort="true">司机姓名</div>
             <div field="plateNumber" width="120" headerAlign="center" allowSort="true">货车车牌号</div>
-            <div field="departureCity" width="100" headerAlign="center" allowSort="true" renderer="onCityRenderer">出发城市</div>
-            <div field="arriveCity" width="100" headerAlign="center" allowSort="true" renderer="onCityRenderer">到达城市</div>
-            <div field="currentAddress" width="100" headerAlign="center" allowSort="true" renderer="onCurrentAddressRenderer">当前地址</div>
+            <div field="departureCity" width="100" headerAlign="center" allowSort="true" renderer="onCityRenderer">
+                出发城市
+            </div>
+            <div field="arriveCity" width="100" headerAlign="center" allowSort="true" renderer="onCityRenderer">到达城市
+            </div>
+            <div field="currentAddress" width="100" headerAlign="center" allowSort="true"
+                 renderer="onCurrentAddressRenderer">当前地址
+            </div>
             <div field="consignor" width="100" headerAlign="center" allowSort="true">发货人</div>
             <div field="consignee" width="100" headerAlign="center" allowSort="true">收货人</div>
             <div field="state" width="100" headerAlign="center" allowSort="true" renderer="onStateRenderer">状态</div>
@@ -68,7 +74,7 @@
             targetWindow: window,
 
             url: bootPATH + "../demo/waybill/waybillAddWindows.html",
-            title: "新增运输单信息", width:500, height: 400,
+            title: "新增运输单信息", width: 500, height: 400,
             onload: function () {
                 var iframe = this.getIFrameEl();
                 var data = {action: "new"};
@@ -100,6 +106,21 @@
         } else {
             alert("请选中一条记录");
         }
+    }
+
+    function editList() {
+        mini.open({
+            url: bootPATH + "../demo/sign/signEdit.html",
+            title: "批量更改运输单信息", width: 350, height: 150,
+            onload: function () {
+                var iframe = this.getIFrameEl();
+                iframe.contentWindow.SetData(data);
+            },
+            ondestroy: function (action) {
+//                    var iframe = this.getIFrameEl();
+                grid.reload();
+            }
+        });
     }
 
     function remove() {

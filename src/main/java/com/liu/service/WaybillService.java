@@ -111,4 +111,12 @@ public class WaybillService {
         truckMapper.changeTruckState0(truckID);
         goodsMapper.changeGoodsState2(goodsID);
     }
+
+    public void changeDistributiveBywaybillID(String distributiveID, Integer goodsID){
+//        Integer goodsID = waybillMapper.getGoodsIDByWaybillID(waybillID);
+        Goods goods = new Goods();
+        goods.setCurrentAddress(distributiveID);
+        goods.setId(goodsID);
+        waybillMapper.updateCurrentAddressByID(goods);
+    }
 }

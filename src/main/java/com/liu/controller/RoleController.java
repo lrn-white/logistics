@@ -2,6 +2,7 @@ package com.liu.controller;
 
 import com.liu.bean.Role;
 import com.liu.service.RoleService;
+import com.liu.service.WaybillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +23,9 @@ public class RoleController {
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private WaybillService waybillService;
 
     @RequestMapping("/demo/outlookmenu/role")
     public String getRoleNameByAccountAndPassword(String account, String password) {
@@ -57,4 +61,11 @@ public class RoleController {
     @RequestMapping("/role/setRoleByAccount")
     @ResponseBody
     public Integer setRoleByAccount(String account, Integer roleID) { return roleService.setRoleByAccount(account, roleID); }
+
+    @RequestMapping("/changeDistributiveBywaybillID")
+    @ResponseBody
+    public String changeDistributiveBywaybillID(String distributiveID, Integer waybillID){
+        waybillService.changeDistributiveBywaybillID(distributiveID, waybillID);
+        return "/demo/sign/signEdit.html";
+    }
 }

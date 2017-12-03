@@ -5,4 +5,5 @@
     { id: "Goods", pid: "message", text: "货物信息", iconCls: "icon-user", url: "../goods/goodsMain.html"},
     { id: "Waybill", pid: "message", text: "运输单信息", iconCls: "icon-user", url: "../waybill/waybillMain.html"},
 
+
 ]
