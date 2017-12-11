@@ -28,6 +28,7 @@
                 <a class="mini-button" iconCls="icon-edit" onclick="edit()">编辑</a>
                 <a class="mini-button" iconCls="icon-ok" onclick="complete()">完成</a>
                 <a class="mini-button" iconCls="icon-ok" onclick="editList()">批量登记</a>
+                <a class="mini-button" iconCls="icon-ok" onclick="editComplete()">批量完成</a>
                 <a class="mini-button" iconCls="icon-remove" onclick="remove()">删除</a>
             </td>
             <td style="white-space:nowrap;">
@@ -112,6 +113,21 @@
         mini.open({
             url: bootPATH + "../demo/sign/signEdit.html",
             title: "批量更改运输单信息", width: 350, height: 150,
+            onload: function () {
+                var iframe = this.getIFrameEl();
+                iframe.contentWindow.SetData(data);
+            },
+            ondestroy: function (action) {
+//                    var iframe = this.getIFrameEl();
+                grid.reload();
+            }
+        });
+    }
+
+    function editComplete() {
+        mini.open({
+            url: bootPATH + "../demo/sign/signComplete.html",
+            title: "批量完成运输单信息", width: 350, height: 150,
             onload: function () {
                 var iframe = this.getIFrameEl();
                 iframe.contentWindow.SetData(data);

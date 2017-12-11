@@ -85,4 +85,7 @@ public interface WaybillMapper {
 
     @Update({"UPDATE goods SET currentAddress = #{currentAddress} WHERE id = #{id};"})
     void updateCurrentAddressByID(Goods goods);
+
+    @Select({"SELECT truckID, driverID from waybill where goodsID = #{arg1};"})
+    WaybillDto getIdByGoodsID(Integer goodsID);
 }

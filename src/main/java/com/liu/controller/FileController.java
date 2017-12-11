@@ -91,4 +91,114 @@ public class FileController {
         return "导入成功";
     }
 
+    //文件上传相关代码
+    @RequestMapping(value = "uploadComplete")
+    public String uploadComplete(@RequestParam("test") MultipartFile file) {
+        if (file.isEmpty()) {
+            return "文件为空";
+        }
+        // 获取文件名
+        String fileName = file.getOriginalFilename();
+        logger.info("上传的文件名为：" + fileName);
+        // 获取文件的后缀名
+        String suffixName = fileName.substring(fileName.lastIndexOf("."));
+        logger.info("上传的后缀名为：" + suffixName);
+        // 文件上传后的路径
+        String filePath = "E://";
+        // 解决中文问题，liunx下中文路径，图片显示问题
+        // fileName = UUID.randomUUID() + suffixName;
+        File dest = new File(filePath + fileName);
+        // 检测是否存在目录
+        if (!dest.getParentFile().exists()) {
+            dest.getParentFile().mkdirs();
+        }
+        try {
+            file.transferTo(dest);
+            return "/readExcelComplete?dest=" + dest;
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "上传失败";
+    }
+
+    //    读取excel表中的内容
+    @RequestMapping("/readExcelComplete")
+    @ResponseBody
+    public String readExcel(String dest) throws Exception{
+        List<Excel> list = new ArrayList<>();
+
+        HSSFWorkbook book = new HSSFWorkbook(new FileInputStream(ResourceUtils.getFile(dest)));
+
+        HSSFSheet sheet = book.getSheetAt(0);
+
+        for(int i=1; i<sheet.getLastRowNum()+1; i++) {
+            HSSFRow row = sheet.getRow(i);
+            String number = row.getCell(0).getStringCellValue(); //编号
+
+            Integer goodsID = null;
+            if (number != null){
+                goodsID = Integer.valueOf(number);
+            }
+
+            waybillService.waybillCompleteBygoodsID(goodsID);
+        }
+        return "导入成功";
+    }
+
+    @RequestMapping("/addWaybill")
+    public String addWaybill(@RequestParam("FileUpload") MultipartFile file) {
+        if (file.isEmpty()) {
+            return "文件为空";
+        }
+        // 获取文件名
+        String fileName = file.getOriginalFilename();
+        logger.info("上传的文件名为：" + fileName);
+        // 获取文件的后缀名
+        String suffixName = fileName.substring(fileName.lastIndexOf("."));
+        logger.info("上传的后缀名为：" + suffixName);
+        // 文件上传后的路径
+        String filePath = "E://";
+        // 解决中文问题，liunx下中文路径，图片显示问题
+        // fileName = UUID.randomUUID() + suffixName;
+        File dest = new File(filePath + fileName);
+        // 检测是否存在目录
+        if (!dest.getParentFile().exists()) {
+            dest.getParentFile().mkdirs();
+        }
+        try {
+            file.transferTo(dest);
+            return "/readExcelWaybill?dest=" + dest;
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "上传失败";
+    }
+
+    //    读取excel表中的内容
+    @RequestMapping("/readExcelWaybill")
+    @ResponseBody
+    public Integer readExcel(String dest, String departureCity, String arriveCity, String driverName, String plateNumber,
+                             String distributiveName) throws Exception {
+        List<Excel> list = new ArrayList<>();
+
+        HSSFWorkbook book = new HSSFWorkbook(new FileInputStream(ResourceUtils.getFile(dest)));
+
+        HSSFSheet sheet = book.getSheetAt(0);
+
+        for (int i = 1; i < sheet.getLastRowNum() + 1; i++) {
+            HSSFRow row = sheet.getRow(i);
+            String number = row.getCell(0).getStringCellValue(); //编号
+
+            Integer goodsID = null;
+            if (number != null) {
+                goodsID = Integer.valueOf(number);
+            }
+            waybillService.addWaybill(departureCity, arriveCity, driverName, plateNumber, goodsID, distributiveName);
+        }
+        return 0;
+    }
 }

@@ -51,11 +51,11 @@ public class WaybillService {
     }
 
     @Transactional
-    public Integer addWaybill(String departureCity, String arriveCity, String driverName, String plateNumber, Integer id, String distributiveName) {
+    public Integer addWaybill(String departureCity, String arriveCity, String driverName, String plateNumber,
+                              Integer goodsID, String distributiveName) {
         Integer driverID = driverMapper.getIdByDriverName(driverName);
         Integer truckID = truckMapper.getIdByPlateNumber(plateNumber);
 //        Integer goodsID = waybillMapper.getGoodsIDByID(id);
-        Integer goodsID = id;
         Goods goods = new Goods();
         goods.setCurrentAddress(distributiveName);
         goods.setId(goodsID);
@@ -118,5 +118,14 @@ public class WaybillService {
         goods.setCurrentAddress(distributiveID);
         goods.setId(goodsID);
         waybillMapper.updateCurrentAddressByID(goods);
+    }
+
+    public void waybillCompleteBygoodsID(Integer goodsID){
+        WaybillDto waybillDto = waybillMapper.getIdByGoodsID(goodsID);
+        Integer driverID = waybillDto.getDriverID();
+        Integer truckID = waybillDto.getTruckID();
+        driverMapper.changeDriverState0(driverID);
+        truckMapper.changeTruckState0(truckID);
+        goodsMapper.changeGoodsState2(goodsID);
     }
 }
