@@ -1603,6 +1603,7 @@ input.mini-textarea
 .mini-outlookmenu .mini-menu-border
 {
     overflow-y:auto;
+    font-size: 20px;
 }
 .mini-outlookmenu .mini-menu
 {
